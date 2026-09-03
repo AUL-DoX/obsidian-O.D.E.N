@@ -1,6 +1,6 @@
 {
 	"name": "oden",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Organizer for Deepening & Evolving Notes - Obsidian plugin",
 	"main": "main.js",
 	"scripts": {
