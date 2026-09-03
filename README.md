@@ -1,6 +1,17 @@
-# ODEN Plugin
+# Oden
 
 **Organizer for Deepening & Evolving Notes**
+
+Oden helps you rediscover notes you left dormant, blending them with your current thinking via AI to extract fresh ideas — like a pot of oden that tastes better the longer its ingredients simmer together.
+
+- **Aging-pot sidebar**: surfaces dormant notes (untouched for a while) that are relevant to the note you're currently viewing, ranked by how "well-simmered" (stale-days × similarity) they are
+- **Blend**: select two or more notes and let AI extract common threads and combined ideas into a brand-new note (your originals are never modified)
+- **"Ready to eat" notification**: an optional startup modal that surfaces notes which have fully matured, so you remember to revisit them
+- **Choice of providers**: OpenAI or local Ollama for embeddings (similarity search), OpenAI or Claude (Anthropic) for blend generation
+
+See below for detailed Japanese documentation (使い方・設定手順・トラブルシューティング).
+
+---
 
 放置メモ（過去の具材）と現在の思考をAIで掛け合わせ、新しいアイディア（出汁）を熟成・抽出するObsidian用プラグインです。
 
