@@ -1,9 +1,9 @@
 {
 	"id": "oden",
 	"name": "ODEN",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"minAppVersion": "1.4.0",
-	"description": "放置メモ（過去の具材）と現在の思考をAIで掛け合わせ、新しいアイディア（出汁）を熟成・抽出するプラグイン.",
+	"description": "Blend dormant notes with your current thinking using AI to extract fresh ideas from what's been simmering.",
 	"author": "AUL",
 	"isDesktopOnly": false
 }
