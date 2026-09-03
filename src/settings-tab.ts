@@ -13,8 +13,6 @@ export class OdenSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		containerEl.createEl("h2", { text: "ODEN 設定" });
-
 		new Setting(containerEl)
 			.setName("Embeddingプロバイダ")
 			.setDesc(
@@ -98,7 +96,7 @@ export class OdenSettingTab extends PluginSettingTab {
 				);
 		}
 
-		containerEl.createEl("h3", { text: "出汁ブレンド（アイディア生成）" });
+		new Setting(containerEl).setName("出汁ブレンド（アイディア生成）").setHeading();
 
 		new Setting(containerEl)
 			.setName("ブレンド用プロバイダ")
@@ -154,7 +152,7 @@ export class OdenSettingTab extends PluginSettingTab {
 				);
 		}
 
-		containerEl.createEl("h3", { text: "熟成サイドバー" });
+		new Setting(containerEl).setName("熟成サイドバー").setHeading();
 
 		new Setting(containerEl)
 			.setName("放置日数のしきい値")
