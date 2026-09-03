@@ -1,0 +1,182 @@
+.oden-sidebar {
+	padding: 8px 4px;
+}
+
+.oden-sidebar-header h4 {
+	margin: 0 0 4px 0;
+}
+
+.oden-sidebar-subtitle {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	margin: 0 0 12px 0;
+}
+
+.oden-sidebar-empty {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+.oden-suggestion-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.oden-suggestion-item {
+	padding: 10px 12px;
+	border-radius: 8px;
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-left: 3px solid var(--background-modifier-border);
+}
+
+.oden-suggestion-title-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 6px;
+}
+
+.oden-suggestion-icon {
+	font-size: 1.1em;
+	line-height: 1;
+}
+
+.oden-suggestion-title {
+	font-weight: 600;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.oden-suggestion-title:hover {
+	text-decoration: underline;
+}
+
+.oden-status-row {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	margin-bottom: 4px;
+	font-size: var(--font-ui-smaller);
+}
+
+.oden-status-label {
+	font-weight: 600;
+}
+
+.oden-status-days {
+	color: var(--text-muted);
+}
+
+.oden-progress-track {
+	width: 100%;
+	height: 6px;
+	border-radius: 3px;
+	background: var(--background-modifier-border);
+	overflow: hidden;
+	margin-bottom: 6px;
+}
+
+.oden-progress-fill {
+	height: 100%;
+	border-radius: 3px;
+	background: var(--oden-tier-color, var(--text-accent));
+	transition: width 0.2s ease;
+}
+
+/* ティア別の色分け：コトコト煮込み中 → 味しみ中 → 食べごろ で暖色を強めていく */
+.oden-tier-simmering {
+	border-left-color: #d9a441;
+	--oden-tier-color: #d9a441;
+}
+.oden-tier-simmering .oden-status-label {
+	color: #d9a441;
+}
+
+.oden-tier-soaking {
+	border-left-color: #e07b3f;
+	--oden-tier-color: #e07b3f;
+}
+.oden-tier-soaking .oden-status-label {
+	color: #e07b3f;
+}
+
+.oden-tier-ready {
+	border-left-color: #d94f3d;
+	--oden-tier-color: #d94f3d;
+}
+.oden-tier-ready .oden-status-label {
+	color: #d94f3d;
+}
+.oden-tier-ready {
+	background: var(--background-secondary-alt, var(--background-secondary));
+}
+
+.oden-suggestion-meta {
+	display: flex;
+	gap: 6px;
+}
+
+.oden-badge {
+	font-size: var(--font-ui-smaller);
+	padding: 2px 6px;
+	border-radius: 4px;
+	background: var(--background-modifier-hover);
+	color: var(--text-muted);
+}
+
+.oden-badge-similarity {
+	color: var(--text-success);
+}
+
+/* 食べごろ通知モーダル */
+.oden-ready-modal h2 {
+	margin: 0 0 4px 0;
+}
+
+.oden-ready-modal-subtitle {
+	color: var(--text-muted);
+	margin: 0 0 16px 0;
+}
+
+.oden-ready-modal-list {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	max-height: 50vh;
+	overflow-y: auto;
+}
+
+.oden-ready-modal-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 12px;
+	border-radius: 6px;
+	background: var(--background-secondary);
+	border-left: 3px solid #d94f3d;
+}
+
+.oden-ready-modal-title {
+	font-weight: 600;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.oden-ready-modal-title:hover {
+	text-decoration: underline;
+}
+
+.oden-ready-modal-days {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	white-space: nowrap;
+	margin-left: 12px;
+}
+
+.oden-ready-modal-footer {
+	margin-top: 16px;
+	display: flex;
+	justify-content: flex-end;
+}
