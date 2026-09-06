@@ -27,7 +27,7 @@ See below for detailed Japanese documentation (使い方・設定手順・トラ
 
 ## インストール（開発版・手動）
 
-まだObsidian公式ディレクトリには申請していません。手動インストールが必要です。
+ただいまObsidian Community Plugins directory に申請中で。手動インストールが必要です。
 
 1. このリポジトリで `npm install` → `npm run build` を実行し、`main.js` / `manifest.json` / `styles.css` を生成
 2. 対象のVaultの `.obsidian/plugins/oden/` フォルダにこの3ファイルをコピー
