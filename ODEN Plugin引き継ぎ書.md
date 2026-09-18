@@ -120,4 +120,10 @@ Phase 1〜3、および当初表になかった「食べごろ通知」まで実
   * `builtin-modules`パッケージ（未使用のビルド時devDependency）が指摘された → 削除
 * CI（GitHub Actions）側でも、ボイラープレート由来の未使用devDependency（`@typescript-eslint/eslint-plugin`/`parser` v6系）が新しい`eslint` v10系と依存関係競合を起こしビルド失敗 → 削除して解消。**今後Actions上でのみ発覚する問題を防ぐため、ローカルでも`npm ci`（`install`ではなく）で動作確認する習慣が必要**
 * 残課題：`PluginSettingTab`の新しい宣言型設定API（`getSettingDefinitions()`、Obsidian 1.13.0以降）への移行は警告止まりのため今回は見送り。将来的に対応する場合はAPI仕様の再調査が必要
-* `0.1.6`として再提出。次回はこの審査結果を確認するところから再開
+* `0.1.6`として再提出
+
+**🎉 2026-09-19：`0.1.6`審査完了、ステータス「満足」に改善**
+
+* community.obsidian.mdのレビュー欄が「完了」（緑）に変化。リリースのアーティファクト認証も両方「パス」
+* 公開ページのステータスが「健康：素晴らしい」「レビュー：注意」→**「レビュー：満足」**に改善
+* 以後の運用：コードを変更したら `npm run build` → `npx eslint main.ts src/*.ts` でエラーなしを確認 → バージョンを上げて `git tag X.X.X && git push origin X.X.X`（GitHub Actionsが自動でビルド・署名・リリースまで実行） → community.obsidian.mdの「新刊がないか確認してください」で再スキャン、という流れが確立できた
