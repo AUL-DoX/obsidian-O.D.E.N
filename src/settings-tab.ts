@@ -16,12 +16,12 @@ export class OdenSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
 			.setName("Embeddingプロバイダ")
 			.setDesc(
-				"熟成サイドバーの類似度計算に使うEmbeddingを選択します。プロバイダ/モデルを切り替えると、次回の再インデックスで対象ノート全件を計算し直します（ベクトル空間の互換性がないため）。"
+				"熟成サイドバーの類似度計算に使うembeddingを選択します。プロバイダ/モデルを切り替えると、次回の再インデックスで対象ノート全件を計算し直します（ベクトル空間の互換性がないため）。"
 			)
 			.addDropdown((dropdown) =>
 				dropdown
 					.addOption("openai", "OpenAI API")
-					.addOption("local", "ローカル（Ollama）")
+					.addOption("local", "ローカル（ollama）")
 					.setValue(this.plugin.settings.embeddingProvider)
 					.onChange(async (value) => {
 						this.plugin.settings.embeddingProvider = value as "openai" | "local";
@@ -36,7 +36,7 @@ export class OdenSettingTab extends PluginSettingTab {
 				.setDesc("OpenAIのAPIキーを入力してください。ローカルには暗号化されず保存されます。")
 				.addText((text) =>
 					text
-						.setPlaceholder("sk-...")
+						.setPlaceholder("Sk-...")
 						.setValue(this.plugin.settings.openaiApiKey)
 						.onChange(async (value) => {
 							this.plugin.settings.openaiApiKey = value.trim();
@@ -45,7 +45,7 @@ export class OdenSettingTab extends PluginSettingTab {
 				);
 
 			new Setting(containerEl)
-				.setName("OpenAI Embeddingモデル")
+				.setName("OpenAI embeddingモデル")
 				.setDesc("例: text-embedding-3-small")
 				.addText((text) =>
 					text
@@ -69,7 +69,7 @@ export class OdenSettingTab extends PluginSettingTab {
 				);
 
 			new Setting(containerEl)
-				.setName("Ollama Embeddingモデル")
+				.setName("Ollama embeddingモデル")
 				.setDesc(
 					"事前に `ollama pull nomic-embed-text` 等でモデルを取得しておいてください。"
 				)
@@ -84,7 +84,7 @@ export class OdenSettingTab extends PluginSettingTab {
 
 			new Setting(containerEl)
 				.setName("Ollama接続テスト")
-				.setDesc("短いテキストでEmbeddingを試し、接続とモデルの状態を確認します。")
+				.setDesc("短いテキストでembeddingを試し、接続とモデルの状態を確認します。")
 				.addButton((button) =>
 					button.setButtonText("接続テスト").onClick(async () => {
 						button.setDisabled(true);
@@ -100,7 +100,7 @@ export class OdenSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("ブレンド用プロバイダ")
-			.setDesc("出汁ブレンド生成に使うAIを選択します（Embeddingとは別設定です）。")
+			.setDesc("出汁ブレンド生成に使うAIを選択します（embeddingとは別設定です）。")
 			.addDropdown((dropdown) =>
 				dropdown
 					.addOption("openai", "OpenAI")
@@ -115,8 +115,8 @@ export class OdenSettingTab extends PluginSettingTab {
 
 		if (this.plugin.settings.chatProvider === "openai") {
 			new Setting(containerEl)
-				.setName("OpenAI Chatモデル")
-				.setDesc("例: gpt-4o-mini / gpt-4o")
+				.setName("OpenAI chatモデル")
+				.setDesc("例: GPT-4o-mini / GPT-4o")
 				.addText((text) =>
 					text
 						.setValue(this.plugin.settings.openaiChatModel)
@@ -131,7 +131,7 @@ export class OdenSettingTab extends PluginSettingTab {
 				.setDesc("ClaudeのAPIキーを入力してください。ローカルには暗号化されず保存されます。")
 				.addText((text) =>
 					text
-						.setPlaceholder("sk-ant-...")
+						.setPlaceholder("Sk-ant-...")
 						.setValue(this.plugin.settings.claudeApiKey)
 						.onChange(async (value) => {
 							this.plugin.settings.claudeApiKey = value.trim();
@@ -141,7 +141,7 @@ export class OdenSettingTab extends PluginSettingTab {
 
 			new Setting(containerEl)
 				.setName("Claudeモデル")
-				.setDesc("例: claude-haiku-4-5-20251001 / claude-sonnet-5 / claude-opus-5")
+				.setDesc("例: Claude-haiku-4-5-20251001 / Claude-sonnet-5 / Claude-opus-5")
 				.addText((text) =>
 					text
 						.setValue(this.plugin.settings.claudeModel)
@@ -161,7 +161,6 @@ export class OdenSettingTab extends PluginSettingTab {
 				slider
 					.setLimits(1, 180, 1)
 					.setValue(this.plugin.settings.staleDaysThreshold)
-					.setDynamicTooltip()
 					.onChange(async (value) => {
 						this.plugin.settings.staleDaysThreshold = value;
 						await this.plugin.saveSettings();
@@ -175,7 +174,6 @@ export class OdenSettingTab extends PluginSettingTab {
 				slider
 					.setLimits(1, 20, 1)
 					.setValue(this.plugin.settings.maxSuggestions)
-					.setDynamicTooltip()
 					.onChange(async (value) => {
 						this.plugin.settings.maxSuggestions = value;
 						await this.plugin.saveSettings();
@@ -185,7 +183,7 @@ export class OdenSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
 			.setName("食べごろ通知")
 			.setDesc(
-				"Obsidian起動時に「食べごろ」に達したノートがあればNoticeで知らせます。既存キャッシュを読むだけで、新規のAPI課金やノートへの書き込みは発生しません。"
+				"Obsidian起動時に「食べごろ」に達したノートがあればnoticeで知らせます。既存キャッシュを読むだけで、新規のAPI課金やノートへの書き込みは発生しません。"
 			)
 			.addToggle((toggle) =>
 				toggle.setValue(this.plugin.settings.notifyOnReady).onChange(async (value) => {
@@ -196,7 +194,7 @@ export class OdenSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("除外フォルダ")
-			.setDesc("インデックス対象から除外するフォルダをカンマ区切りで指定（前方一致）。例: Templates/,Archive/")
+			.setDesc("インデックス対象から除外するフォルダをカンマ区切りで指定（前方一致）。例: Templates/,archive/")
 			.addTextArea((text) =>
 				text
 					.setValue(this.plugin.settings.excludedFolders.join(","))
@@ -211,7 +209,7 @@ export class OdenSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Vaultを再インデックス")
-			.setDesc("全ノートのEmbeddingを計算します（変更のないノートはスキップされます）。API利用料が発生する場合があります。")
+			.setDesc("全ノートのembeddingを計算します（変更のないノートはスキップされます）。API利用料が発生する場合があります。")
 			.addButton((button) =>
 				button.setButtonText("再インデックス実行").onClick(async () => {
 					button.setDisabled(true);

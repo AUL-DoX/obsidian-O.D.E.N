@@ -25,22 +25,22 @@ export class ReadyNotesModal extends Modal {
 			text: `${this.notes.length}件のメモが熟成しきっています。見直してみませんか？`,
 		});
 
-		const list = contentEl.createEl("div", { cls: "oden-ready-modal-list" });
+		const list = contentEl.createDiv({ cls: "oden-ready-modal-list" });
 		for (const note of this.notes) {
-			const item = list.createEl("div", { cls: "oden-ready-modal-item" });
+			const item = list.createDiv({ cls: "oden-ready-modal-item" });
 			const link = item.createEl("a", { cls: "oden-ready-modal-title", text: note.title });
 			link.addEventListener("click", (evt) => {
 				evt.preventDefault();
 				this.onOpenNote(note.path);
 				this.close();
 			});
-			item.createEl("span", {
+			item.createSpan({
 				cls: "oden-ready-modal-days",
 				text: `放置 ${note.staleDays}日`,
 			});
 		}
 
-		const footer = contentEl.createEl("div", { cls: "oden-ready-modal-footer" });
+		const footer = contentEl.createDiv({ cls: "oden-ready-modal-footer" });
 		const closeButton = footer.createEl("button", { text: "閉じる" });
 		closeButton.addEventListener("click", () => this.close());
 	}

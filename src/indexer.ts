@@ -87,7 +87,7 @@ export class OdenIndexer {
 		this.onChange();
 
 		if (failed > 0) {
-			new Notice(`ODEN: ${failed}件のノートでEmbedding計算に失敗しました。`);
+			new Notice(`Oden: ${failed}件のノートでEmbedding計算に失敗しました。`);
 		}
 
 		return { updated, skipped, failed };

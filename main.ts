@@ -20,7 +20,9 @@ export default class OdenPlugin extends Plugin {
 			() => this.settings,
 			() => getEmbeddingProvider(this.settings),
 			this.embeddings,
-			() => this.saveData_()
+			() => {
+				void this.saveData_();
+			}
 		);
 
 		this.registerView(
@@ -28,18 +30,18 @@ export default class OdenPlugin extends Plugin {
 			(leaf: WorkspaceLeaf) => new OdenSidebarView(leaf, this.indexer)
 		);
 
-		this.addRibbonIcon("soup", "ODEN 熟成サイドバーを開く", () => {
-			this.activateSidebar();
+		this.addRibbonIcon("soup", "Oden 熟成サイドバーを開く", () => {
+			void this.activateSidebar();
 		});
 
 		this.addCommand({
-			id: "oden-open-sidebar",
+			id: "open-sidebar",
 			name: "熟成サイドバーを開く",
 			callback: () => this.activateSidebar(),
 		});
 
 		this.addCommand({
-			id: "oden-reindex-vault",
+			id: "reindex-vault",
 			name: "Vaultを再インデックス",
 			callback: () => this.reindexVault(),
 		});
@@ -90,7 +92,7 @@ export default class OdenPlugin extends Plugin {
 			await leaf.setViewState({ type: ODEN_SIDEBAR_VIEW_TYPE, active: true });
 		}
 
-		workspace.revealLeaf(leaf);
+		await workspace.revealLeaf(leaf);
 	}
 
 	refreshSidebarViews(): void {
@@ -112,12 +114,12 @@ export default class OdenPlugin extends Plugin {
 		if (readyNotes.length === 0) return;
 
 		new ReadyNotesModal(this.app, readyNotes, (path) => {
-			this.app.workspace.openLinkText(path, "", false);
+			void this.app.workspace.openLinkText(path, "", false);
 		}).open();
 	}
 
 	async blendNotes(files: TFile[]): Promise<void> {
-		const notice = new Notice("ODEN: 出汁ブレンドを生成中...", 0);
+		const notice = new Notice("Oden: 出汁ブレンドを生成中...", 0);
 		try {
 			const notes: BlendSourceNote[] = await Promise.all(
 				files.map(async (file) => ({
@@ -131,12 +133,12 @@ export default class OdenPlugin extends Plugin {
 			const newFile = await createBlendNote(this.app, notes, blendMarkdown);
 
 			notice.hide();
-			new Notice(`ODEN: 出汁ブレンドを生成しました「${newFile.basename}」`);
+			new Notice(`Oden: 出汁ブレンドを生成しました「${newFile.basename}」`);
 			await this.app.workspace.getLeaf(true).openFile(newFile);
 		} catch (e) {
 			notice.hide();
 			console.error("[ODEN] 出汁ブレンド生成に失敗", e);
-			new Notice(`ODEN: 出汁ブレンドの生成に失敗しました。${(e as Error).message}`);
+			new Notice(`Oden: 出汁ブレンドの生成に失敗しました。${(e as Error).message}`);
 		}
 	}
 
@@ -144,18 +146,18 @@ export default class OdenPlugin extends Plugin {
 		try {
 			const provider = new OllamaEmbeddingProvider(this.settings);
 			const vector = await provider.embed("ODEN接続テスト");
-			new Notice(`ODEN: Ollama接続OK（次元数: ${vector.length}）`);
+			new Notice(`Oden: Ollama接続OK（次元数: ${vector.length}）`);
 		} catch (e) {
 			console.error("[ODEN] Ollama接続テストに失敗", e);
-			new Notice(`ODEN: Ollama接続テストに失敗しました。${(e as Error).message}`);
+			new Notice(`Oden: Ollama接続テストに失敗しました。${(e as Error).message}`);
 		}
 	}
 
 	async reindexVault(): Promise<void> {
-		new Notice("ODEN: Vaultの再インデックスを開始します...");
+		new Notice("Oden: Vaultの再インデックスを開始します...");
 		const result = await this.indexer.reindexVault();
 		new Notice(
-			`ODEN: 完了（更新 ${result.updated}件 / スキップ ${result.skipped}件 / 失敗 ${result.failed}件）`
+			`Oden: 完了（更新 ${result.updated}件 / スキップ ${result.skipped}件 / 失敗 ${result.failed}件）`
 		);
 		this.refreshSidebarViews();
 	}

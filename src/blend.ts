@@ -22,6 +22,14 @@ export interface BlendSourceNote {
 	content: string;
 }
 
+interface OpenAIChatResponse {
+	choices?: { message?: { content?: string } }[];
+}
+
+interface AnthropicMessagesResponse {
+	content?: { text?: string }[];
+}
+
 /** ブレンド生成を行うChatプロバイダのインターフェース */
 export interface ChatProvider {
 	generate(userContent: string): Promise<string>;
@@ -59,7 +67,8 @@ class OpenAIChatProvider implements ChatProvider {
 			throw new Error(`OpenAI Chat APIエラー (status ${res.status}): ${res.text}`);
 		}
 
-		const text = res.json?.choices?.[0]?.message?.content;
+		const json = res.json as OpenAIChatResponse;
+		const text = json.choices?.[0]?.message?.content;
 		if (typeof text !== "string" || !text.trim()) {
 			throw new Error("OpenAI Chat APIのレスポンス形式が不正です。");
 		}
@@ -98,7 +107,8 @@ class ClaudeChatProvider implements ChatProvider {
 			throw new Error(`Anthropic APIエラー (status ${res.status}): ${res.text}`);
 		}
 
-		const text = res.json?.content?.[0]?.text;
+		const json = res.json as AnthropicMessagesResponse;
+		const text = json.content?.[0]?.text;
 		if (typeof text !== "string" || !text.trim()) {
 			throw new Error("Anthropic APIのレスポンス形式が不正です。");
 		}

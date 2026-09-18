@@ -1,8 +1,8 @@
 {
 	"id": "oden",
 	"name": "Oden",
-	"version": "0.1.5",
-	"minAppVersion": "1.4.0",
+	"version": "0.1.6",
+	"minAppVersion": "1.7.2",
 	"description": "Blend dormant notes with your current thinking using AI to extract fresh ideas from what's been simmering.",
 	"author": "AUL",
 	"isDesktopOnly": false

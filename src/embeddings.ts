@@ -9,6 +9,14 @@ export interface EmbeddingProvider {
 	embed(text: string): Promise<number[]>;
 }
 
+interface OpenAIEmbeddingResponse {
+	data?: { embedding?: number[] }[];
+}
+
+interface OllamaEmbeddingResponse {
+	embedding?: number[];
+}
+
 const OPENAI_ENDPOINT = "https://api.openai.com/v1/embeddings";
 
 export class OpenAIEmbeddingProvider implements EmbeddingProvider {
@@ -42,12 +50,12 @@ export class OpenAIEmbeddingProvider implements EmbeddingProvider {
 			);
 		}
 
-		const json = res.json;
-		const vector = json?.data?.[0]?.embedding;
+		const json = res.json as OpenAIEmbeddingResponse;
+		const vector = json.data?.[0]?.embedding;
 		if (!Array.isArray(vector)) {
 			throw new Error("OpenAI Embedding APIのレスポンス形式が不正です。");
 		}
-		return vector as number[];
+		return vector;
 	}
 }
 
@@ -80,11 +88,12 @@ export class OllamaEmbeddingProvider implements EmbeddingProvider {
 			);
 		}
 
-		const vector = res.json?.embedding;
+		const json = res.json as OllamaEmbeddingResponse;
+		const vector = json.embedding;
 		if (!Array.isArray(vector)) {
 			throw new Error("Ollama Embedding APIのレスポンス形式が不正です。");
 		}
-		return vector as number[];
+		return vector;
 	}
 }
 
