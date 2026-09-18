@@ -104,3 +104,20 @@ Phase 1〜3、および当初表になかった「食べごろ通知」まで実
   * `description`は英語必須・半角句読点(`.` `!` `?`)で終わる必要がある
   * READMEにも英語セクションが必須（ディレクトリが英語圏中心のため）
   * リリース資産（`main.js`/`styles.css`/`manifest.json`）にGitHubのアーティファクト認証（`actions/attest-build-provenance`）を付けることが推奨される。`.github/workflows/release.yml`を用意し、`git tag X.X.X && git push origin X.X.X`だけで自動ビルド・署名・リリース作成が完結するようにした
+
+**2026-09-19：`0.1.5`が審査で不合格（コード品質チェック）**
+
+`0.1.5`は「食べごろ通知」実装当初の課題（アーティファクト認証・命名規則）は解決していたが、**`eslint-plugin-obsidianmd`（公式ESLintルールセット）による静的解析**で15件のエラー・44件の警告が新たに検出され不合格に。対応内容：
+
+* ローカルに`eslint` + `eslint-plugin-obsidianmd`（`recommended`設定）を導入（`eslint.config.mjs`）。以後、申請前に`npx eslint main.ts src/*.ts`で同じチェックをローカル再現できる
+* 主なエラーの原因と対処
+  * `Workspace.revealLeaf`が`minAppVersion`（1.4.0）より新しいAPI（1.7.2以降）だった → `await`を付けて使用し、`minAppVersion`を`1.7.2`に引き上げ
+  * floating promise（`void`演算子で明示的に無視、またはawait追加）
+  * `requestUrl`のレスポンスJSON（`any`型）への安全でないアクセス → OpenAI/Anthropic/Ollama各レスポンスの型定義を追加
+  * コマンドIDにプラグインID(`oden-`)を含めていた → Obsidianが自動で名前空間化するため不要、削除
+  * `createEl("div"/"span", ...)` → `createDiv`/`createSpan`に統一（推奨ヘルパー）
+  * UIテキストのsentence case違反多数 → ESLintの提案通りに一括修正
+  * `builtin-modules`パッケージ（未使用のビルド時devDependency）が指摘された → 削除
+* CI（GitHub Actions）側でも、ボイラープレート由来の未使用devDependency（`@typescript-eslint/eslint-plugin`/`parser` v6系）が新しい`eslint` v10系と依存関係競合を起こしビルド失敗 → 削除して解消。**今後Actions上でのみ発覚する問題を防ぐため、ローカルでも`npm ci`（`install`ではなく）で動作確認する習慣が必要**
+* 残課題：`PluginSettingTab`の新しい宣言型設定API（`getSettingDefinitions()`、Obsidian 1.13.0以降）への移行は警告止まりのため今回は見送り。将来的に対応する場合はAPI仕様の再調査が必要
+* `0.1.6`として再提出。次回はこの審査結果を確認するところから再開
