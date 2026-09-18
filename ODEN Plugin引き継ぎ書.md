@@ -127,3 +127,10 @@ Phase 1〜3、および当初表になかった「食べごろ通知」まで実
 * community.obsidian.mdのレビュー欄が「完了」（緑）に変化。リリースのアーティファクト認証も両方「パス」
 * 公開ページのステータスが「健康：素晴らしい」「レビュー：注意」→**「レビュー：満足」**に改善
 * 以後の運用：コードを変更したら `npm run build` → `npx eslint main.ts src/*.ts` でエラーなしを確認 → バージョンを上げて `git tag X.X.X && git push origin X.X.X`（GitHub Actionsが自動でビルド・署名・リリースまで実行） → community.obsidian.mdの「新刊がないか確認してください」で再スキャン、という流れが確立できた
+
+**重要：community.obsidian.mdの審査「完了」＝Obsidian本体で検索できる、ではない**
+
+* `obsidianmd/obsidian-releases`リポジトリは**Pull Requestを受け付けなくなっている**（PR機能自体が無効化されており、APIで叩くと404）。以前あった「GitHubに直接PRを送る」申請方法は完全に過去のものになっている
+* 実際にObsidian本体が読み込む`community-plugins.json`は、community.obsidian.md側のDBから**Botによる自動ミラー同期（約1時間おきに`chore: Mirror community plugins and themes`というコミットで反映）**によって更新される仕組み
+* そのため、community.obsidian.mdのダッシュボードで審査が「完了」「満足」になっても、**Obsidianアプリ内の「コミュニティプラグイン」検索に実際に出てくるまでには、次の自動同期（最大1時間程度）を待つ必要がある**
+* `0.1.6`の審査完了を確認したのが2026-09-19昼前後。Obsidian内検索での反映確認は後日改めて実施
