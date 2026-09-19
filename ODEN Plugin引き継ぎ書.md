@@ -134,3 +134,11 @@ Phase 1〜3、および当初表になかった「食べごろ通知」まで実
 * 実際にObsidian本体が読み込む`community-plugins.json`は、community.obsidian.md側のDBから**Botによる自動ミラー同期（約1時間おきに`chore: Mirror community plugins and themes`というコミットで反映）**によって更新される仕組み
 * そのため、community.obsidian.mdのダッシュボードで審査が「完了」「満足」になっても、**Obsidianアプリ内の「コミュニティプラグイン」検索に実際に出てくるまでには、次の自動同期（最大1時間程度）を待つ必要がある**
 * `0.1.6`の審査完了を確認したのが2026-09-19昼前後。Obsidian内検索での反映確認は後日改めて実施
+
+**🎉 2026-09-19：Obsidian本体での検索・インストールを確認**
+
+* 本家`obsidianmd/obsidian-releases`の`community-plugins.json`に`"id": "oden"`のエントリが実際に反映され、Obsidianアプリ内の「コミュニティプラグイン」検索で「Oden」「oden」（大文字・小文字問わず）でヒットし、インストールできる状態を確認
+* `author`フィールドは`manifest.json`の`"AUL"`ではなく、GitHub組織名由来と思われる`"aul-dox"`（小文字）として登録されている
+* `description`末尾に "This plugin has not been manually reviewed by Obsidian staff." という注記が自動付与されている。これは自動チェック（ESLint等）は通過したが、Obsidianスタッフによる目視レビューはまだ、という意味の標準的な注意書き。検索・インストールには支障なし
+* READMEのインストール手順も、申請中を前提にした手動インストール手順から「コミュニティプラグイン検索からインストール」を第一手順とする内容に更新済み（旧手順は開発者向けとして残置）
+* ここまでで、企画書（Phase1〜3）→ 実装 → 実機テスト → GitHub公開 → Obsidian公式ディレクトリ申請 → 公開、の一連の流れが完了
